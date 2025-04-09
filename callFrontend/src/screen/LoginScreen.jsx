@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import '../styles/LoginScreen.css';
-import { NavBar } from '../components/NavBar';
 
 // * Variables de entorno
 const API_URL = import.meta.env.VITE_API_URL;
@@ -59,7 +58,6 @@ export const LoginScreen = () => {
 
     return (
         <>
-            <NavBar />
             <div className="login-container">
                 <div className="login-card">
                     <h2 className="login-title">Bienvenido</h2>

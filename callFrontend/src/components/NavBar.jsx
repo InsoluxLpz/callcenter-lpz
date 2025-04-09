@@ -85,16 +85,6 @@ export const NavBar = () => {
   const routeTitles = {
     "/inicio": "Inicio",
     "/motos": "Flotilla",
-    "/productos": "Catalogo de Productos",
-    "/servicios/RealizarServicio": "Servicios",
-    "/servicios/ListaServicios": "Servicios",
-    "/almacen/ProductoAlmacenTable": "Inventario Productos",
-    "/almacen/MovimientosAlmacenTable": "Movimientos de productos",
-    "/Proveedores": "Catalogo de Proveedores",
-    "/servicios/ListaMantenimientos": "Reporte Mantenimientos",
-    "/servicios/CatalogoServicios": "Catalogo de servicios",
-    "/almacen/Entradas": "Entradas/Salidas",
-    "/servicios/RealizarMantenimiento": "Agregar Mantenimiento"
   };
 
   const currentTitle = routeTitles[location.pathname] || "Inicio";

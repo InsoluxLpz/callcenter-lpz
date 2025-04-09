@@ -1,9 +1,9 @@
-import { MotosTable } from '../components/relacionMotos/MotosTable';
+import { LlamadasTable } from '../components/relacionLlamadas/LlamadasTable';
 
 export const HomeScreen = () => {
   return (
     <>
-      <MotosTable />
+      <LlamadasTable />
 
     </>
   );
