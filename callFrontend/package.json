@@ -1,0 +1,52 @@
+{
+  "name": "motos-crud",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "server": "live-server public --host=0.0.0.0 --port=4001 --middleware=./disable-browser-cache.js",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@fontsource/roboto": "^5.1.1",
+    "@mui/icons-material": "^6.4.7",
+    "@mui/material": "^6.4.7",
+    "@mui/styled-engine-sc": "^6.4.3",
+    "@mui/x-data-grid": "^7.28.1",
+    "@mui/x-date-pickers": "^7.26.0",
+    "@react-spring/web": "^9.7.5",
+    "@reduxjs/toolkit": "^2.5.1",
+    "bcrypt": "^5.1.1",
+    "bootstrap": "^5.3.3",
+    "chance": "^1.1.12",
+    "dayjs": "^1.11.13",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^9.2.0",
+    "react-router": "^6.29.0",
+    "react-router-dom": "^6.29.0",
+    "react-select": "^5.10.0",
+    "react-virtuoso": "^4.12.5",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7",
+    "styled-components": "^6.1.15",
+    "sweetalert2": "^11.16.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "vite": "^5.2.0"
+  }
+}
