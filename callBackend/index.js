@@ -13,7 +13,13 @@ initSqlite();
 
 app.use(express.static('public'))
 app.use(express.json()); // Habilita manejo de JSON
-// app.use('/', motosCrud);
+
+
+// * Importación de rutas
+const usuariosRoute = require('./src/routes/usuariosRoute'); // si lo exportas con `module.exports`
+
+// * Rutas
+app.use('/api/usuarios', usuariosRoute);
 
 app.listen(process.env.PORT, () => {
     console.log(`Servidor corriendo en el puerto: ${process.env.PORT}`);
