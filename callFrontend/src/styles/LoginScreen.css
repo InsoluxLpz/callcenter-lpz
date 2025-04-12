@@ -48,7 +48,7 @@
 .login-title {
     font-size: 35px;
     font-weight: bold;
-    color: #1f618d; /* Morado oscuro */
+    color: #212f3c; /* Morado oscuro */
     margin-bottom: 10px;
 }
 
@@ -100,7 +100,7 @@
 
 /* Botón de ingresar */
 .btn-submit {
-    background-color: #1f618d; /* Morado */
+    background-color: #212f3c; /* Morado */
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -161,7 +161,7 @@
 
 .btn-submit:hover {
     background-color: 
-    #5499c7; 
+    #34495e; 
     color:#fff;
 }
 

@@ -18,22 +18,22 @@ export const LoginScreen = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`${API_URL}/login`, {
+            const response = await fetch(`${API_URL}/api/usuarios`, {
                 method: 'POST',
                 mode: "cors",
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(form),
+                body: JSON.stringify({ action: 'login', ...form }),
             });
 
             if (response.ok) {
                 const data = await response.json();
                 console.log(data);
-                // Guardar tanto el token de acceso como el refresh token
+                localStorage.setItem('usuario', data.user.usuario);
+                localStorage.setItem('url_name', data.user.url_name ?? '');
+                localStorage.setItem('url_lista', data.user.url_lista ?? '');
                 localStorage.setItem('token', data.token);
-                localStorage.setItem('idUsuario', data.id);
-                localStorage.setItem('usuario', data.nombre);
 
                 Swal.fire({
                     position: "center",
@@ -44,7 +44,7 @@ export const LoginScreen = () => {
                 });
 
                 setTimeout(() => {
-                    navigate('/Motos');
+                    navigate('/Inicio');
                 }, 800);
             } else {
                 const errorData = await response.json();

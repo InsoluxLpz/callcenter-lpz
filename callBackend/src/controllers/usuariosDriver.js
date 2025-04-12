@@ -1,23 +1,23 @@
 // controllers/usuariosDriver.js
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { openDb } = require('../../db');
+const { generarJwt } = require('../helpers/jwt');
 
 const SECRET_KEY = 'miroku23';
 
-async function handleUsuarios(req, res) {
+const handleUsuarios = async (req, res) => {
   const db = await openDb();
 
   if (req.method === 'POST') {
-    const { action, id, usuario, password: pwd, lista_id, color } = req.body;
+    const { action, id, usuario, password, lista_id } = req.body;
 
     try {
       if (action === 'register') {
-        if (!usuario || !pwd) {
+        if (!usuario || !password) {
           return res.status(400).json({ error: 'Usuario y contraseña son obligatorios' });
         }
 
-        const ucmresponse = await fetch("http://localhost:8080/api/ucm", {
+        const ucmresponse = await fetch("http://localhost:4000/api/ucm", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ action: "getUser", user_name: usuario })
@@ -27,30 +27,38 @@ async function handleUsuarios(req, res) {
         if (ucmData.status !== 0)
           return res.status(400).json({ error: 'Usuario no existe en el UCM' });
 
-        const hashedPassword = await bcrypt.hash(pwd, 10);
         await db.run(
-          'INSERT INTO usuarios (usuario, password, color, type) VALUES (?, ?, ?, "agente")',
-          [usuario, hashedPassword, color]
+          'INSERT INTO usuarios (usuario, password, type) VALUES (?, ?, ?, "agente")',
+          [usuario, password]
         );
 
         return res.status(201).json({ message: 'Usuario registrado exitosamente' });
       }
 
       if (action === 'login') {
-        if (!usuario || !pwd) {
+        if (!usuario || !password) {
           return res.status(400).json({ error: 'Usuario y contraseña son obligatorios' });
         }
 
         const user = await db.get('SELECT * FROM usuarios WHERE usuario = ?', [usuario]);
         if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
 
-        const isPasswordValid = await bcrypt.compare(pwd, user.password);
-        if (!isPasswordValid) return res.status(401).json({ error: 'Contraseña incorrecta' });
 
-        let usuariores = { ...user };
-        delete usuariores.password;
+        if (!password) return res.status(401).json({ error: 'Contraseña incorrecta' });
 
-        return res.status(200).json({ message: 'Inicio de sesión exitoso', user: usuariores });
+        const token = await generarJwt(user, password);
+
+        return res.status(200).json({
+          message: 'Inicio de sesión exitoso',
+          token,
+          user: {
+            id: user.id,
+            usuario: user.usuario,
+            type: user.type,
+            url_name: user.url_name,
+            url_lista: user.url_lista,
+          }
+        });
       }
 
       if (action === 'update') {
@@ -58,9 +66,8 @@ async function handleUsuarios(req, res) {
 
         const fields = [];
         if (usuario) fields.push(`usuario = '${usuario}'`);
-        if (pwd) {
-          const hashedPassword = await bcrypt.hash(pwd, 10);
-          fields.push(`password = '${hashedPassword}'`);
+        if (password) {
+          fields.push(`password = '${password}'`);
         }
         if (lista_id) fields.push(`lista_id = '${lista_id}'`);
 

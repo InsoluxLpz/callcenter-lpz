@@ -60,6 +60,9 @@ export const NavBar = () => {
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(location.pathname);
 
+  const nombreUsuario = localStorage.getItem("usuario")
+  console.log(nombreUsuario)
+
   useEffect(() => {
     setSelectedItem(location.pathname);
   }, [location.pathname]);
@@ -78,13 +81,15 @@ export const NavBar = () => {
 
     if (result.isConfirmed) {
       localStorage.removeItem("token");
+      localStorage.removeItem("usuario");
+      localStorage.removeItem("url_lista");
+      localStorage.removeItem("url_name");
       navigate("/");
     }
   };
 
   const routeTitles = {
-    "/inicio": "Inicio",
-    "/motos": "Flotilla",
+    "/Inicio": `Extensión: ${nombreUsuario}`,
   };
 
   const currentTitle = routeTitles[location.pathname] || "Inicio";
@@ -94,7 +99,7 @@ export const NavBar = () => {
       <AppBar
         position="fixed"
         open={open}
-        style={{ backgroundColor: "#34495e" }}
+        style={{ backgroundColor: "#1b2631" }}
       >
         <Toolbar>
           {/* Título con flexGrow para empujar el contenido a la derecha */}
