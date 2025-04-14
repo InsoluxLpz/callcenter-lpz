@@ -49,6 +49,8 @@ async function initSqlite() {
 
     INSERT OR IGNORE INTO usuarios (usuario, password, type)
     VALUES ("111", "Ins0lux.", "admin");
+
+    
   `);
 
   console.log('SQLite inicializado');
